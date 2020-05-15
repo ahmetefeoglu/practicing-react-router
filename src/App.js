@@ -10,6 +10,17 @@ import {
 
 
 
+
+function  Topic({match}) {
+
+  console.log("match", match);
+
+  return (
+    <h3>{match.params.topicId}</h3>
+
+  )
+}
+
 function Home() {
 
   return (
@@ -38,11 +49,25 @@ function About() {
 
 }
 
-function Contacts() {
+
+
+function Topics({match}) {
 
   return (
       <div>
-        <h2>Contacts</h2>
+        <h2>Topics</h2>
+
+        <ul>
+          <li><Link to =  {`${match.url}/rendering` }>Rendering with React</Link></li>
+          <li><Link to = {`${match.url}/components`}> Components</Link></li>
+          <li><Link to =  {`${match.url}/props-v-state`}>Props vs State</Link></li>
+        </ul>
+
+        <Route  path =  "/topics/:topicId" component = {Topic} />
+        <Route exact path =  {match.url}  render = {() => (
+          <h3> Plese select topic</h3>
+        )} />
+        
       </div>
 
   )
@@ -58,17 +83,17 @@ export default class App extends React.Component {
       <Router>
         <div>
           <ul>
-            <li><Link to = "/">Home</Link> </li>
+            <li><Link to =  "/">Home</Link> </li>
             <li><Link to = "/about">About</Link></li>
-            <li><Link to = "/contacts">Contacts</Link></li>
+            <li><Link to = "/topics">Topics</Link></li>
           </ul>
 
 
           <hr />
 
-          <Route path = "/" component = {Home} />
+          <Route exact path = "/" component = {Home} />
           <Route path = "/about" component = {About} />
-          <Route path = "/contacts" component = {Contacts} />
+          <Route path = "/topics" component = {Topics} />
         </div>
 
       </Router>
